@@ -7,9 +7,9 @@ hier=$1
 modeldir=model
 
 train="/home/mallesh/deepvideo/data/train"
-eval="data/eval"
+eval="/home/mallesh/deepvideo/data/eval"
 train_mv="/home/mallesh/deepvideo/data/train_mv"
-eval_mv="data/eval_mv"
+eval_mv="/home/mallesh/deepvideo/data/eval_mv"
 
 if [[ ${hier} == "0" ]]; then
   distance1=6
@@ -54,4 +54,6 @@ python3 -u train.py \
   --distance1 ${distance1} --distance2 ${distance2} \
   --max-train-iters 100000 \
   --save-model-name "wunet_32" \
+  --load-model-name "wunet_32" \
+  --load-iter 95000 \
   --save-out-img

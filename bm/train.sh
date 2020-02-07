@@ -40,8 +40,6 @@ fi
 # (for the demo data it's okay.)
 
 
-#  --load-model-name "wunet_2:256_3:256_16" \
-#  --load-iter 10000 \
 
 python3 -u train.py \
   --train ${train} \
@@ -55,4 +53,6 @@ python3 -u train.py \
   --distance1 ${distance1} --distance2 ${distance2} \
   --max-train-iters 100000 \
   --save-model-name "wunet_2:128_3:128_16" \
+  --load-model-name "wunet_2:128_3:128_16" \
+  --load-iter 95000 \
   --save-out-img
