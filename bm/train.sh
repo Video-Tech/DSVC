@@ -54,5 +54,5 @@ python3 -u train.py \
   --max-train-iters 100000 \
   --save-model-name "wunet_2:128_3:128_16" \
   --load-model-name "wunet_2:128_3:128_16" \
-  --load-iter 95000 \
+  --load-iter 20000 \
   --save-out-img

@@ -55,5 +55,5 @@ python3 -u train.py \
   --max-train-iters 100000 \
   --save-model-name "wunet_32" \
   --load-model-name "wunet_32" \
-  --load-iter 95000 \
+  --load-iter 20000 \
   --save-out-img
