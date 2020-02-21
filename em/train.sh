@@ -54,6 +54,4 @@ python3 -u train.py \
   --distance1 ${distance1} --distance2 ${distance2} \
   --max-train-iters 100000 \
   --save-model-name "wunet_32" \
-  --load-model-name "wunet_32" \
-  --load-iter 20000 \
   --save-out-img

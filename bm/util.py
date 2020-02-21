@@ -363,9 +363,9 @@ def init_lstm(batch_size, height, width, args):
                    Variable(
                        torch.zeros(batch_size, 128, height // 8, width // 8)))
     encoder_h_3 = (Variable(
-        torch.zeros(batch_size, 32, height // 16, width // 16)),
+        torch.zeros(batch_size, 16, height // 16, width // 16)),
                    Variable(
-                       torch.zeros(batch_size, 32, height // 16, width // 16)))
+                       torch.zeros(batch_size, 16, height // 16, width // 16)))
 
     decoder_h_1 = (Variable(
         torch.zeros(batch_size, 128, height // 16, width // 16)),

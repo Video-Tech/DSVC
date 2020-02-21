@@ -44,7 +44,7 @@ class EncoderCell(nn.Module):
         self.rnn3 = ConvLSTMCell(
             128,#((384 if fuse_encoder and v_compress else 512) 
              #if self.fuse_level >= 3 else 256),
-            32,
+            16,
             kernel_size=3,
             stride=2,
             padding=1,
@@ -83,7 +83,7 @@ class EncoderCell(nn.Module):
 class Binarizer(nn.Module):
     def __init__(self, bits):
         super(Binarizer, self).__init__()
-        self.conv = nn.Conv2d(32, 16, kernel_size=1, bias=False)
+        self.conv = nn.Conv2d(16, 64, kernel_size=1, bias=False)
         self.sign = Sign()
 
     def forward(self, input):
@@ -104,7 +104,7 @@ class DecoderCell(nn.Module):
 
         # Layers.
         self.conv1 = nn.Conv2d(
-            32, 64, kernel_size=1, stride=1, padding=0, bias=False)
+            128, 64, kernel_size=1, stride=1, padding=0, bias=False)
 
         self.rnn1 = ConvLSTMCell(
             64,
