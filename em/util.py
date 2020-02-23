@@ -253,8 +253,8 @@ def forward_model(model, cooked_batch, ctx_frames, args, v_compress,
     prev_psnr = 0.0
     #old_encoder = torch.load("./../bm/model/wunet_64x16_encoder_20000")
     #old_binarizer = torch.load("./../bm/model/wunet_64x16_binarizer_20000")
-    old_encoder = torch.load("./../bm/model/wunet_2:256_3:256_64x16_encoder_100000")
-    old_binarizer = torch.load("./../bm/model/wunet_2:256_3:256_64x16_binarizer_100000")
+    old_encoder = torch.load("./../bm/model/wunet_2:256_3:256_64x16_encoder_10000")
+    old_binarizer = torch.load("./../bm/model/wunet_2:256_3:256_64x16_binarizer_10000")
     for _ in range(iterations):
 
         if args.v_compress and args.stack:

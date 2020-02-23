@@ -109,8 +109,8 @@ if args.load_model_name:
     scheduler.last_epoch = train_iter - 1
     just_resumed = True
 
-old_encoder = torch.load("./../bm/model/wunet_2:256_3:256_64x16_encoder_100000")
-old_binarizer = torch.load("./../bm/model/wunet_2:256_3:256_64x16_binarizer_100000")
+old_encoder = torch.load("./../bm/model/wunet_2:256_3:256_64x16_encoder_10000")
+old_binarizer = torch.load("./../bm/model/wunet_2:256_3:256_64x16_binarizer_10000")
 
 while True:
 

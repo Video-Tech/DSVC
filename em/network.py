@@ -104,7 +104,7 @@ class DecoderCell(nn.Module):
 
         # Layers.
         self.conv1 = nn.Conv2d(
-            128, 64, kernel_size=1, stride=1, padding=0, bias=False)
+            80, 64, kernel_size=1, stride=1, padding=0, bias=False)
 
         self.rnn1 = ConvLSTMCell(
             64,
