@@ -203,7 +203,7 @@ while True:
         if train_iter % args.checkpoint_iters == 0:
             save(train_iter)
 
-        if just_resumed or train_iter % args.eval_iters == 0 or train_iter == 100000:
+        if just_resumed or train_iter % args.eval_iters == 0 or train_iter == 20000:
             print('Start evaluation...')
             torch.save(encoder, '{}wunet_2:256_3:256_64x16_encoder_{}'.format('./model/', train_iter) )
             torch.save(binarizer, '{}wunet_2:256_3:256_64x16_binarizer_{}'.format('./model/', train_iter) )
