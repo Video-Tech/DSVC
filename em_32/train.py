@@ -109,6 +109,9 @@ if args.load_model_name:
     scheduler.last_epoch = train_iter - 1
     just_resumed = True
 
+old_encoder = torch.load("./../bm/model/wunet_2:256_3:256_64x16_encoder_20000")
+old_binarizer = torch.load("./../bm/model/wunet_2:256_3:256_64x16_binarizer_20000")
+
 while True:
 
     for batch, (crops, ctx_frames, temp) in enumerate(train_loader):
@@ -129,6 +132,12 @@ while True:
             batch_size=(crops[0].size(0) * args.num_crops), height=crops[0].size(2),
             width=crops[0].size(3), args=args)
 
+        (old_encoder_h_1, old_encoder_h_2, old_encoder_h_3,
+         _, _, _, _) = init_lstm(
+            batch_size=(crops[0].size(0) * args.num_crops), height=crops[0].size(2),
+            width=crops[0].size(3), args=args)
+
+
         # Forward U-net.
         #if args.v_compress:
             #unet_output1, unet_output2 = forward_ctx(unet, ctx_frames)
@@ -143,6 +152,9 @@ while True:
 	#enc_unet_output1 = warped_unet_output.numpy()
         #enc_unet_output1 = warped_unet_output1
         #enc_unet_output2 = warped_unet_output2 
+
+	#print(enc_unet_output2[0].shape, unet_output1[0].shape, warped_unet_output1[0].shape)
+
 
         losses = []
 
@@ -167,9 +179,17 @@ while True:
             # Binarize.
             codes = binarizer(encoded)
 	    
+	    #print(codes.shape)
+            #old_encoded, old_encoder_h_1, old_encoder_h_2, old_encoder_h_3 = old_encoder(encoder_input, old_encoder_h_1, old_encoder_h_2, old_encoder_h_3, enc_unet_output1, enc_unet_output2)
+            old_encoded, old_encoder_h_1, old_encoder_h_2, old_encoder_h_3 = old_encoder(encoder_input, old_encoder_h_1, old_encoder_h_2, old_encoder_h_3)
+            old_codes = old_binarizer(old_encoded)
+            new_codes = torch.cat([codes, old_codes], dim=1)
+
+	    #print(old_codes.shape, codes.shape, new_codes.shape)
+
             # Decode.
             (output, decoder_h_1, decoder_h_2, decoder_h_3, decoder_h_4) = decoder(
-                codes, decoder_h_1, decoder_h_2, decoder_h_3, decoder_h_4)
+                new_codes, decoder_h_1, decoder_h_2, decoder_h_3, decoder_h_4)
 
             res = res - output
             out_img = out_img + output.data
@@ -204,11 +224,11 @@ while True:
         if train_iter % args.checkpoint_iters == 0:
             save(train_iter)
 
-        if just_resumed or train_iter % args.eval_iters == 0 or train_iter == 20000:
+        if just_resumed or train_iter % args.eval_iters == 0 or train_iter == 20001:
             print('Start evaluation...')
-            torch.save(encoder, '{}wunet_2:256_3:256_64x16_encoder_{}'.format('./model/', train_iter) )
-            torch.save(binarizer, '{}wunet_2:256_3:256_64x16_binarizer_{}'.format('./model/', train_iter) )
-            torch.save(decoder, '{}wunet_2:256_3:256_64x16_decoder_{}'.format('./model/', train_iter) )
+            torch.save(encoder, '{}wunet_64x32_encoder_{}'.format('./model/', train_iter) )
+            torch.save(binarizer, '{}wunet_64x32_binarizer_{}'.format('./model/', train_iter) )
+            torch.save(decoder, '{}wunet_64x32_decoder_{}'.format('./model/', train_iter) )
             set_eval(nets)
 
             eval_loaders = get_eval_loaders()

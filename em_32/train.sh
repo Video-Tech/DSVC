@@ -39,9 +39,8 @@ fi
 # when using a big evaluation dataset.
 # (for the demo data it's okay.)
 
-
-#  --load-model-name "wunet_2:128_3:128_16" \
-#  --load-iter 95000 \
+  #--load-model-name "wunet_32" \
+  #--load-iter 20000 \
 
 python3 -u train.py \
   --train ${train} \
@@ -54,8 +53,8 @@ python3 -u train.py \
   --bits ${bits} \
   --distance1 ${distance1} --distance2 ${distance2} \
   --max-train-iters 20000 \
-  --save-model-name "wunet_2:128_3:128_16" \
-  --load-model-name "wunet_2:128_3:128_16" \
+  --save-model-name "wunet_32" \
+  --load-model-name "wunet_32" \
   --load-iter 20000 \
   --save-out-img \
   --save-codes
