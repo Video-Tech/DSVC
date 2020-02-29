@@ -7,10 +7,8 @@ hier=$1
 modeldir=model
 
 train="/home/mallesh/deepvideo/data/train"
-# train="/home/mallesh/pytorch-vcii/data/train"
 eval="/home/mallesh/deepvideo/data/eval"
 train_mv="/home/mallesh/deepvideo/data/train_mv"
-# train_mv="/home/mallesh/pytorch-vcii/data/train_mv"
 eval_mv="/home/mallesh/deepvideo/data/eval_mv"
 
 if [[ ${hier} == "0" ]]; then
@@ -45,22 +43,6 @@ fi
 #  --load-model-name "wunet_2:128_3:128_16" \
 #  --load-iter 95000 \
 
-# python3 -u train.py \
-#   --train ${train} \
-#   --eval ${eval} \
-#   --train-mv ${train_mv} \
-#   --eval-mv ${eval_mv} \
-#   --encoder-fuse-level ${encoder_fuse_level} \
-#   --decoder-fuse-level ${decoder_fuse_level} \
-#   --v-compress --warp --stack --fuse-encoder \
-#   --bits ${bits} \
-#   --distance1 ${distance1} --distance2 ${distance2} \
-#   --max-train-iters 20000 \
-#   --save-model-name "wunet_2:128_3:128_16" \
-#   --save-out-img \
-#   --save-codes
-
-
 python3 -u train.py \
   --train ${train} \
   --eval ${eval} \
@@ -71,8 +53,7 @@ python3 -u train.py \
   --v-compress --warp --stack --fuse-encoder \
   --bits ${bits} \
   --distance1 ${distance1} --distance2 ${distance2} \
-  --max-train-iters 1000 \
-  --save-model-name "demo_wunet_2:128_3:128_16" \
+  --max-train-iters 30000 \
+  --save-model-name "wunet_2:128_3:128_16" \
   --save-out-img \
-  --save-codes \
-  --eval-iters 500
+  --save-codes

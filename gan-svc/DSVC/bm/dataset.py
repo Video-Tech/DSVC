@@ -293,15 +293,19 @@ class ImageFolder(data.Dataset):
             crops = []
             for i in range(self._num_crops):
                 crop = crop_cv2(img, self.patch)
-                crop[..., :9] /= 255.0
                 # apply gaussian blur
-                #crop = cv2.GaussianBlur(crop, (5,5), cv2.BORDER_DEFAULT)
+                crop = cv2.GaussianBlur(crop, (5,5), cv2.BORDER_DEFAULT)
+                crop = cv2.resize(crop, (0, 0), fx=0.5, fy=0.5, interpolation=cv2.INTER_CUBIC)
+                crop = cv2.resize(crop, (0, 0), fx=2, fy=2, interpolation=cv2.INTER_CUBIC)
+                crop[..., :9] /= 255.0
                 crops.append(np_to_torch(crop))
             data = crops
         else:
-            img[..., :9] /= 255.0
             # apply gaussian blur
-            #img = cv2.GaussianBlur(img, (5,5), cv2.BORDER_DEFAULT)
+            img = cv2.GaussianBlur(img, (5,5), cv2.BORDER_DEFAULT)
+            img = cv2.resize(img, (0, 0), fx=0.5, fy=0.5, interpolation=cv2.INTER_CUBIC)
+            img = cv2.resize(img, (0, 0), fx=2, fy=2, interpolation=cv2.INTER_CUBIC)
+            img[..., :9] /= 255.0
             data = np_to_torch(img)
 
         ctx_frames /= 255.0

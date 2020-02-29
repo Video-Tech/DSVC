@@ -255,23 +255,23 @@ while True:
             (output, decoder_h_1, decoder_h_2, decoder_h_3, decoder_h_4) = decoder(
                 codes, decoder_h_1, decoder_h_2, decoder_h_3, decoder_h_4)
 
-            # Enable backprop for Discriminator
-            for param in netD.parameters():
-                param.requires_grad = True
+            ## Enable backprop for Discriminator
+            #for param in netD.parameters():
+            #    param.requires_grad = True
 
-            optimizer_D.zero_grad()         # zero D's gradients
-            loss_D = backward_D(frame2, output)      # calculate gradients for D
-            optimizer_D.step()              # update D's weights
+            #optimizer_D.zero_grad()         # zero D's gradients
+            #loss_D = backward_D(frame2, output)      # calculate gradients for D
+            #optimizer_D.step()              # update D's weights
 
-            # Disable backprop for Discriminator
-            for param in netD.parameters():
-                param.requires_grad = False
+            ## Disable backprop for Discriminator
+            #for param in netD.parameters():
+            #    param.requires_grad = False
 
             
             #res = default_loader(main_fn) - output
             res = res - output
             out_img = out_img + output.data
-            losses.append(res.abs().mean() + loss_D)
+            losses.append(res.abs().mean())# + loss_D)
 
         bp_t1 = time.time()
 
