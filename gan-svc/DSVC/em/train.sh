@@ -52,6 +52,6 @@ python3 -u train.py \
   --v-compress --warp --stack --fuse-encoder \
   --bits ${bits} \
   --distance1 ${distance1} --distance2 ${distance2} \
-  --max-train-iters 20000 \
+  --max-train-iters 30000 \
   --save-model-name "wunet_32" \
   --save-out-img
